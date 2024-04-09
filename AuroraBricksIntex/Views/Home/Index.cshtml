@@ -106,3 +106,30 @@
         </div>
     </div>
 </section>
+
+<!--Cookie Code-->
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+      var banner = document.getElementById('cookieConsentBanner');
+      banner.style.display = 'flex'; // Show the banner
+
+      // When the user clicks on ‘Accept & Shop’, hide the banner
+      document.getElementById('acceptCookies').addEventListener('click', function () {
+        banner.style.display = 'none';
+        // Here, you would also handle the cookie acceptance, such as setting a cookie
+      });
+
+      // When the user clicks the ‘×’ button, hide the banner
+      document.getElementById('closeBanner').addEventListener('click', function () {
+        banner.style.display = 'none';
+      });
+    });
+</script>
+
+<!-- Cookie Consent Banner -->
+<div id="cookieConsentBanner" class="cookie-consent-banner">
+    <p>We use technologies such as cookies to enable the best shopping experience for you, as well as for analytics, personalization, dynamic content and for marketing purposes. <a href=“/privacy-policy”>Privacy Policy</a>.</p>
+    @*   <button id=“cookieSettings” class=“cookie-settings”>Cookie Settings</button> *@
+    <button id="acceptCookies" class="accept-cookies">Accept & Shop</button>
+    <button id="closeBanner" class="close-banner">&times;</button>
+</div>

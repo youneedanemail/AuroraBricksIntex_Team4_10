@@ -31,3 +31,53 @@ body {
         max-width: 375px; /* Change this value to your desired maximum width */
     }
 }
+
+/*css for cookie button*/
+
+/* Cookie Consent Banner Styles */
+.cookie-consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    box-shadow: 0 -2px 5px rgba(0,0,0,.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    z-index: 1000;
+}
+
+    .cookie-consent-banner p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .cookie-consent-banner .cookie-settings,
+    .cookie-consent-banner .accept-cookies {
+        margin-left: 10px;
+        padding: 5px 15px;
+        font-size: 14px;
+        color: white;
+    }
+
+    /*.cookie-consent-banner .cookie-settings {
+        background-color: #606060;*/ /* Grey */
+    /*}*/
+
+    .cookie-consent-banner .accept-cookies {
+        background-color: #add8e6; /* pastel blue */
+    }
+
+    .cookie-consent-banner .close-banner {
+        background: none;
+        border: none;
+        font-size: 20px;
+        color: #606060;
+    }
+
+/* Hide the banner initially */
+#cookieConsentBanner {
+    display: none;
+}
