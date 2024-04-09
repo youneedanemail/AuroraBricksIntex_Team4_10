@@ -20,6 +20,14 @@ namespace AuroraBricksIntex
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
+            // cookie
+            builder.Services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -36,6 +44,9 @@ namespace AuroraBricksIntex
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            // Cookie
+            app.UseCookiePolicy();
 
             app.UseRouting();
 

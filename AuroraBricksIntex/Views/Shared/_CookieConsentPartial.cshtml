@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Microsoft.AspNetCore.Http.Features
+@{
+    var consentFeatureFlag = Context.Features.Get<ITrackingConsentFeature>();
+    var showBannerFlag = !consentFeatureFlag?.CanTrack ?? false;
+    var cookieStr = consentFeatureFlag?.CreateConsentCookie();
+}
+@* @if (showBannerFlag)
+{
+    <div id="cookieConsentDiv">
+        <h3 class=“display-6">Cookie Policy</h3>
+        <p>PLEASE ACCEPT OUR <a asp-page=“/CookiePolicy”>COOKIE POLICY</a>.</p>
+        <button type=“button” data-cookie-string=“@cookieStr”>
+            <span aria-hidden=“true”>Accept</span>
+        </button>
+    </div>
+    <script type=“text/javascript”>
+        $(document).ready(function () {
+            $(“#cookieConsentDiv button[data-cookie-string]“).bind(“click”, function () {
+                document.cookie = $(this).attr(‘data-cookie-string’);
+                $(“#cookieConsentDiv”).hide();
+            });
+        });
+    </script>
+} *@
