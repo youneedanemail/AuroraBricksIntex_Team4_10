@@ -20,3 +20,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.max-width-img {
+    width: 100%; /* Allow image to be dynamic */
+    max-width: 100%; /* Limit image width to its container */
+}
+
+@media (min-width: 375px) { /* Change 992px to your desired breakpoint */
+    .max-width-img {
+        max-width: 375px; /* Change this value to your desired maximum width */
+    }
+}
