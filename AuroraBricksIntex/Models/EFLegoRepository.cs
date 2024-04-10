@@ -10,5 +10,7 @@ namespace AuroraBricksIntex.Models
             _context = temp;
         }
        public IQueryable<Product> Products => _context.Products;
+
+
     }
 }
