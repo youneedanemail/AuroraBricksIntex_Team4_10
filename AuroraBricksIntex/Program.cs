@@ -10,6 +10,8 @@ namespace AuroraBricksIntex
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var services = builder.Services;
+            var configuration = builder.Configuration;
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -41,6 +43,12 @@ namespace AuroraBricksIntex
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 14;
                 options.Password.RequiredUniqueChars = 3;
+            });
+
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+                microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
             });
 
             var app = builder.Build();
