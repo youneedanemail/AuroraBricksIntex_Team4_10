@@ -6,18 +6,11 @@ namespace AuroraBricksIntex.Models;
 
 public partial class Team410DbContext : DbContext
 {
-    public Team410DbContext()
-    {
-    }
 
     private readonly string? _connectionString;
 
-    public Team410DbContext(DbContextOptions<Team410DbContext> options)
+    public Team410DbContext(DbContextOptions<Team410DbContext> options, IConfiguration configuration)
         : base(options)
-    {
-    }
-
-    public Team410DbContext(IConfiguration configuration)
     {
         _connectionString = configuration.GetConnectionString("DefaultConnection")
                            ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -44,8 +37,8 @@ public partial class Team410DbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer(_connectionString);
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    => optionsBuilder.UseSqlServer(_connectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
