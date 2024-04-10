@@ -98,14 +98,18 @@ namespace AuroraBricksIntex.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddProduct(Product response)       
+        public IActionResult AddProduct(Product response)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                _repo.AddProduct(response);         // called the same but calling AddProduct from repo
+                _repo.AddProduct(response);
+                return View("ConfirmProductChange", response);
             }
-            
-            return View("ConfirmProductChange", response);
+            else
+            {
+                // Handle invalid ModelState
+                return View(response); // Return the same view with validation errors
+            }
         }
 
 
