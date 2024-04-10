@@ -12,8 +12,6 @@ public partial class Team410DbContext : DbContext
     public Team410DbContext(DbContextOptions<Team410DbContext> options, IConfiguration configuration)
         : base(options)
     {
-        _connectionString = configuration.GetConnectionString("DefaultConnection")
-                           ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
     }
 
 
