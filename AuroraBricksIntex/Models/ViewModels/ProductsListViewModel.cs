@@ -7,5 +7,8 @@
 
         public string? CurrentProductCategory { get; set; }
 
+        public string? CurrentProductType { get; set; }
+
+
     }
 }

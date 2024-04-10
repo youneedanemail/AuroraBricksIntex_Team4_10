@@ -23,6 +23,8 @@ namespace AuroraBricksIntex.Infrastructure
         public string? PageAction { get; set; }     // same as page-action in html
         [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]  // look for page-url- then store as string, object dictionary
         public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
+
         public PaginationInfo PageModel { get; set; }
 
         public bool PageClassesEnabled { get; set; } = false;

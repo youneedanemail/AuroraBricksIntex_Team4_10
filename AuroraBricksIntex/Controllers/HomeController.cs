@@ -18,14 +18,15 @@ namespace AuroraBricksIntex.Controllers
             _repo = temp;
         }
 
-        public ViewResult Index(string? Category, int pageNum = 1)
+        //pagination info and filtering to categories
+        public ViewResult Index(string? productCategoryType, int pageNum = 1)
         {
            int pageSize = 10;
 
             var productData = new ProductsListViewModel
             {
                 Products = _repo.Products
-                //.Where(x => x.Category == Category || Category == null)
+                .Where(x => x.Category == productCategoryType || productCategoryType == null)
                 .OrderBy(x => x.Name)
                 .Skip(pageSize * (pageNum - 1))
                 .Take(pageSize),
@@ -34,11 +35,10 @@ namespace AuroraBricksIntex.Controllers
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = _repo.Products.Count(),
-                    //TotalItems = productCategory == null ? _repo.Products.Count() : _repo.Products.Where(x => x.ProductCategory == productCategory).Count()
+                    TotalItems = productCategoryType == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category == productCategoryType).Count()
                 },
 
-               // CurrentProductCategory = productCategory
+               CurrentProductType = productCategoryType
             };
 
             return View(productData);

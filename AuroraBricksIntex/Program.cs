@@ -2,7 +2,9 @@ using AuroraBricksIntex.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AuroraBricksIntex.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+
 
 namespace AuroraBricksIntex
 {
@@ -72,15 +74,17 @@ namespace AuroraBricksIntex
 
             app.UseRouting();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/{pageNum}", new { Controller = "Home", action = "Index" });
+            app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
+            app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
+
+            app.MapDefaultControllerRoute();
 
             app.MapRazorPages();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.Run();
         }
