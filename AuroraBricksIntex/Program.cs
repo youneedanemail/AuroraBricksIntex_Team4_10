@@ -25,15 +25,23 @@ namespace AuroraBricksIntex
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<ILegoRepository, EFLegoRepository>();  // when client logs on, in their session they get an instance of an EFWaterRepository even though our program says that we are using IWaterRepository
+            builder.Services.AddScoped<ILegoRepository, EFLegoRepository>();
 
             builder.Services.AddRazorPages();
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
 
-        
-
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 14;
+                options.Password.RequiredUniqueChars = 3;
+            });
 
             var app = builder.Build();
 
@@ -45,8 +53,7 @@ namespace AuroraBricksIntex
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseHsts(); // Enable HSTS middleware
             }
 
             app.UseHttpsRedirection();
