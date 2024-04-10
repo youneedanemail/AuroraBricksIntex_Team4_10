@@ -5,6 +5,7 @@ using System.Diagnostics;
 using AuroraBricksIntex.Models.ViewModels;
 using System.Drawing.Printing;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AuroraBricksIntex.Controllers
 {
@@ -52,6 +53,16 @@ namespace AuroraBricksIntex.Controllers
         {
             return View();
         }
+        
+        public IActionResult ConfirmProductChange()
+        {
+            return View();
+        }
+
+        public IActionResult ConfirmProductDelete()
+        {
+            return View();
+        }
 
         // Page to show details of one product
         public IActionResult ProductDetails(int ProductId)
@@ -94,7 +105,7 @@ namespace AuroraBricksIntex.Controllers
                 _repo.AddProduct(response);         // called the same but calling AddProduct from repo
             }
             
-            return View("SuccessProductAdd", response);
+            return View("ConfirmProductChange", response);
         }
 
 

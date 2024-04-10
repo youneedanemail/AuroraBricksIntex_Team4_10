@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model Product
+
+<h2>Confirm Deletion of @Model.Name?</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="ProductId" />
+
+    <button class="btn btn-danger" type="submit">Delete</button>
+    <a class="btn btn-info" asp-controller="Home" asp-action="ConfirmProductDelete">Cancel</a>
+</form>
