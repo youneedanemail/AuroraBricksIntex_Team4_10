@@ -6,14 +6,14 @@ namespace AuroraBricksIntex.Models;
 
 public partial class Team410DbContext : DbContext
 {
-    public Team410DbContext()
-    {
-    }
 
-    public Team410DbContext(DbContextOptions<Team410DbContext> options)
+    private readonly string? _connectionString;
+
+    public Team410DbContext(DbContextOptions<Team410DbContext> options, IConfiguration configuration)
         : base(options)
     {
     }
+
 
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
@@ -35,9 +35,8 @@ public partial class Team410DbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=tcp:myfreesqldbserverteam410.database.windows.net,1433;Initial Catalog=Team410DB;Persist Security Info=False;User ID=ABLegoQueen;Password=Aisthebuildinggoddessofbricks2create!excitingLsets;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //    => optionsBuilder.UseSqlServer(_connectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

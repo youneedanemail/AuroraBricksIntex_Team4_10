@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Product List";
+}
+
+@model List<Product>
+
+<table class="table table-bordered">
+    <thead class="fw-bold">
+        <tr>
+            <td>Product Id</td>
+            <td>Name</td>
+            <td>Year</td>
+            <td>Number of Parts</td>
+            <td>Price</td>
+            <td>Image Link</td>
+            <td>Primary Color</td>
+            <td>Secondary Color</td>
+            <td>Description</td>
+            <td>Category</td>
+        </tr>
+
+    </thead>
+
+    @foreach (var x in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@x.ProductId</td>
+                <td>@x.Name</td>
+                <td>@x.Year</td>
+                <td>@x.NumParts</td>
+                <td>@x.Price</td>
+                <td>@x.ImgLink</td>
+                <td>@x.PrimaryColor</td>
+                <td>@x.SecondaryColor</td>
+                <td>@x.Description</td>
+                <td>@x.Category</td>
+                <td><a class="btn btn-info" asp-controller="Home" asp-action="EditProduct" asp-route-id="@x.ProductId">Edit</a></td>
+                <td><a class="btn btn-danger" asp-controller="Home" asp-action="DeleteProduct" asp-route-id="@x.ProductId">Delete</a></td>
+            </tr>
+
+        </tbody>
+    }
+
+</table>
+
+

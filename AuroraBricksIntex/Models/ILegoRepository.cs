@@ -4,6 +4,17 @@
     {
         public IQueryable<Product> Products { get; }
 
-       // void SaveChanges();   // needed for crud functionality
+        // Crud functionality
+        public void AddProduct(Product product);
+
+        public void EditProduct(Product product);
+
+        public void DeleteProduct(Product product);
+        //public void AddUser(Product product);
+
+        //public void EditUser(Product product);
+
+        //public void DeleteUser(Product product);
+
     }
 }

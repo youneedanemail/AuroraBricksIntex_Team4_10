@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AuroraBricksIntex.Models;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+
 
 namespace AuroraBricksIntex
 {
@@ -11,11 +13,12 @@ namespace AuroraBricksIntex
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var services = builder.Services;
+            var configuration = builder.Configuration;
 
-            // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+
+            var connectionString = configuration["ConnectionStrings:DefaultConnection"]
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDbContext<Team410DbContext>(options =>
                 options.UseSqlServer(connectionString));
@@ -23,18 +26,33 @@ namespace AuroraBricksIntex
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<Team410DbContext>(); // Use Team410DbContext for Identity
+
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<ILegoRepository, EFLegoRepository>();  // when client logs on, in their session they get an instance of an EFWaterRepository even though our program says that we are using IWaterRepository
+            builder.Services.AddScoped<ILegoRepository, EFLegoRepository>();
 
             builder.Services.AddRazorPages();
 
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
 
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                // Default Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 14;
+                options.Password.RequiredUniqueChars = 3;
+            });
 
-
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = configuration["Authentication:Microsoft:ClientId"];
+                microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
+            });
 
             var app = builder.Build();
 
@@ -46,8 +64,7 @@ namespace AuroraBricksIntex
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseHsts(); // Enable HSTS middleware
             }
 
             app.UseHttpsRedirection();
@@ -57,18 +74,17 @@ namespace AuroraBricksIntex
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/{pageNum}", new { Controller = "Home", action = "Index" });
             app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
             app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
-
 
             app.MapDefaultControllerRoute();
 
             app.MapRazorPages();
 
-            //app.MapRazorPages();
+            app.UseAuthentication();
+            app.UseAuthorization();
+
 
             app.Run();
         }
