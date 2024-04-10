@@ -1,3 +1,4 @@
+@import url('site.css');
 html {
   font-size: 14px;
 }
@@ -31,6 +32,13 @@ body {
         max-width: 375px; /* Change this value to your desired maximum width */
     }
 }
+
+.btn-primary {
+    background-color: #add8e6; /*pastel blue*/
+    border-color: #add8e6;
+}
+
+
 
 /*css for cookie button*/
 

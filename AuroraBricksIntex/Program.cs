@@ -2,6 +2,7 @@ using AuroraBricksIntex.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AuroraBricksIntex.Models;
+using Microsoft.AspNetCore.Builder;
 
 namespace AuroraBricksIntex
 {
@@ -32,7 +33,7 @@ namespace AuroraBricksIntex
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
 
-        
+
 
 
             var app = builder.Build();
@@ -58,12 +59,16 @@ namespace AuroraBricksIntex
 
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/{pageNum}", new { Controller = "Home", action = "Index" });
+            app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
+            app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
+
+
+            app.MapDefaultControllerRoute();
 
             app.MapRazorPages();
+
+            //app.MapRazorPages();
 
             app.Run();
         }
