@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AuroraBricksIntex.Models;
 
 public partial class Product
 {
+    [Key]
     public byte ProductId { get; set; }
 
     public string Name { get; set; } = null!;

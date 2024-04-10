@@ -5,6 +5,7 @@ using System.Diagnostics;
 using AuroraBricksIntex.Models.ViewModels;
 using System.Drawing.Printing;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AuroraBricksIntex.Controllers
 {
@@ -52,6 +53,16 @@ namespace AuroraBricksIntex.Controllers
         {
             return View();
         }
+        
+        public IActionResult ConfirmProductChange()
+        {
+            return View();
+        }
+
+        public IActionResult ConfirmProductDelete()
+        {
+            return View();
+        }
 
         // Page to show details of one product
         public IActionResult ProductDetails(int ProductId)
@@ -70,14 +81,94 @@ namespace AuroraBricksIntex.Controllers
         }
 
 
-        //// CRUD FUNCTIONALITY
+        // CRUD FUNCTIONALITY
+
+        //PRODUCT SECTION
+
+        // Add
+
+        [HttpGet]
+        public IActionResult AddProduct()
+        {
+            ViewBag.Products = _repo.Products  // populates viewbag Products
+                .OrderBy(x => x.Name)
+                .ToList();
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(Product response)       
+        {
+            if (!ModelState.IsValid)
+            {
+                _repo.AddProduct(response);         // called the same but calling AddProduct from repo
+            }
+            
+            return View("ConfirmProductChange", response);
+        }
+
+
+        public IActionResult ProductList()
+        {
+            // Linq  (sequal language)
+            var Products = _repo.Products
+                .OrderBy(x => x.Name).ToList();
+
+            return View(Products);
+        }
+
+
+        // Edit 
+        [HttpGet]
+        public IActionResult EditProduct(int id)
+        {
+            var recordToEdit = _repo.Products
+            .Single(x => x.ProductId == id);
+
+            ViewBag.Products = _repo.Products
+                .OrderBy(x => x.Name)
+                .ToList();
+
+            return View("AddProduct", recordToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult EditProduct(Product updateInfo)
+        {
+            _repo.EditProduct(updateInfo);
+  
+            return RedirectToAction("ProductList");
+        }
+
+        // Delete 
+        [HttpGet]
+        public IActionResult DeleteProduct(int id)
+        {
+            var recordToDelete = _repo.Products
+                .Single(x => x.ProductId == id);
+
+
+            return View(recordToDelete);
+        }
+
+        // Delete 
+        [HttpPost]
+        public IActionResult DeleteProduct(Product deleteInfo)
+        {
+            _repo.DeleteProduct(deleteInfo);
+
+            return RedirectToAction("ProductList");
+        }
+
+        //// USER SECTION
 
         //// Add
 
         //[HttpGet]
-        //public IActionResult AddProduct()
+        //public IActionResult AddUser()
         //{
-        //    ViewBag.Products = _repo.Products  // populates viewbag Products
+        //    ViewBag.Users = _repo.Users  // populates viewbag Users
         //        .OrderBy(x => x.Name)
         //        .ToList();
 
@@ -85,55 +176,55 @@ namespace AuroraBricksIntex.Controllers
         //}
 
         //[HttpPost]
-        //public IActionResult AddProduct(Product response)
+        //public IActionResult AddUser(User response)
         //{
-        //    _repo.Products.Add(response);    // Add record to the database
-        //    _repo.SaveChanges();             // commits changes to database
+        //    if (!ModelState.IsValid)
+        //    {
+        //        _repo.AddUser(response);         // called the same but calling AddUser from repo
+        //    }
 
-        //    return View("SuccessProductAdd", response);
+        //    return View("SuccessUserAdd", response);
         //}
 
 
-        //public IActionResult ProductList()
+        //public IActionResult UserList()
         //{
         //    // Linq  (sequal language)
-        //    var Products = _repo.Products
+        //    var Users = _repo.Users
         //        .OrderBy(x => x.Name).ToList();
 
-        //    return View(Products);
+        //    return View(Users);
         //}
 
 
         //// Edit 
         //[HttpGet]
-        //public IActionResult Edit(int id)
+        //public IActionResult EditUser(int id)
         //{
-        //    var recordToEdit = _repo.Products
-        //    .Single(x => x.ProductId == id);
+        //    var recordToEdit = _repo.Users
+        //    .Single(x => x.UserId == id);
 
-        //    ViewBag.Products = _repo.Products  
+        //    ViewBag.Users = _repo.Users
         //        .OrderBy(x => x.Name)
         //        .ToList();
 
-        //    return View("AddProduct", recordToEdit);
+        //    return View("AddUser", recordToEdit);
         //}
 
         //[HttpPost]
-        //public IActionResult Edit(Product updateInfo)
+        //public IActionResult EditUser(User updateInfo)
         //{
-        //    _repo.Update(updateInfo);
-        //    _repo.SaveChanges();
+        //    _repo.EditUser(updateInfo);
 
-
-        //    return RedirectToAction("ProductList");
+        //    return RedirectToAction("UserList");
         //}
 
         //// Delete 
         //[HttpGet]
-        //public IActionResult Delete(int id)
+        //public IActionResult DeleteUser(int id)
         //{
-        //    var recordToDelete = _repo.Products
-        //        .Single(x => x.ProductId == id);
+        //    var recordToDelete = _repo.Users
+        //        .Single(x => x.UserId == id);
 
 
         //    return View(recordToDelete);
@@ -141,17 +232,15 @@ namespace AuroraBricksIntex.Controllers
 
         //// Delete 
         //[HttpPost]
-        //public IActionResult Delete(Product deleteInfo)
+        //public IActionResult DeleteUser(User deleteInfo)
         //{
-        //    _repo.Products.Remove(deleteInfo);
-        //    _repo.SaveChanges();
+        //    _repo.DeleteUser(deleteInfo);
 
-        //    return RedirectToAction("ProductList");
+        //    return RedirectToAction("UserList");
         //}
-    
 
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
