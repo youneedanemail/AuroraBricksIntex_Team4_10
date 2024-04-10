@@ -2,6 +2,7 @@ using AuroraBricksIntex.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using AuroraBricksIntex.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace AuroraBricksIntex
 {
@@ -13,10 +14,9 @@ namespace AuroraBricksIntex
             var services = builder.Services;
             var configuration = builder.Configuration;
 
-            // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+
+            var connectionString = configuration["ConnectionStrings:DefaultConnection"]
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services.AddDbContext<Team410DbContext>(options =>
                 options.UseSqlServer(connectionString));
@@ -24,7 +24,8 @@ namespace AuroraBricksIntex
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<Team410DbContext>(); // Use Team410DbContext for Identity
+
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<ILegoRepository, EFLegoRepository>();
