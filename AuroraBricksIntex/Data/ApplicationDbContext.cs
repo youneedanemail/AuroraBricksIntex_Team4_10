@@ -9,5 +9,7 @@ namespace AuroraBricksIntex.Data
             : base(options)
         {
         }
+
+
     }
 }
