@@ -9,7 +9,8 @@ namespace AuroraBricksIntex.Models
         {
             _context = temp;
         }
-       public IQueryable<Product> Products => _context.Products;
+        public IQueryable<Product> Products => _context.Products;
+        public IQueryable<Order> Orders => _context.Orders;
 
         public void AddProduct(Product product)
         {

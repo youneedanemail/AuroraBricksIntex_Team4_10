@@ -74,9 +74,9 @@ namespace AuroraBricksIntex
 
             app.UseRouting();
 
-            app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/{pageNum}", new { Controller = "Home", action = "Index" });
-            app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
-            app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
+            //app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/{pageNum}", new { Controller = "Home", action = "Index" });
+            //app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
+            //app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
 
             app.MapDefaultControllerRoute();
 

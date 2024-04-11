@@ -6,6 +6,8 @@ using AuroraBricksIntex.Models.ViewModels;
 using System.Drawing.Printing;
 using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Recommendations;
 
 namespace AuroraBricksIntex.Controllers
 {
@@ -242,6 +244,21 @@ namespace AuroraBricksIntex.Controllers
 
         //    return RedirectToAction("UserList");
         //}
+
+
+        // Faudulant Order View
+        public IActionResult OrderList()
+        {
+            int numFraud = 25;
+
+            var Orders = _repo.Orders
+                .Where(x => x.Fraud == true)
+                .OrderByDescending(x => x.Date)
+                .ThenByDescending(x => x.Time)
+                .Take(numFraud).ToList();
+
+            return View(Orders);
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
