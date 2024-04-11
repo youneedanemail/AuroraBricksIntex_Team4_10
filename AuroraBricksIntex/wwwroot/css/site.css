@@ -44,9 +44,15 @@ body {
 }
 
 
+.bg-img {
+    background-image: url("../images/Header.png");
+    background-size: contain; /* Make the background image cover the entire container while maintaining its aspect ratio */
+    background-repeat: no-repeat; /* Prevent image repetition */
+    background-position: center; /* Center the background image */
+    height: 500px; /* Initial height of the container */
+}
 
 /*css for cookie button*/
-
 /* Cookie Consent Banner Styles */
 .cookie-consent-banner {
     position: fixed;
