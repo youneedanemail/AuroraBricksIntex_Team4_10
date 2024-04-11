@@ -30,8 +30,26 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
+                        <!--Dynamic Navbar when Authenticated in-->
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="UserList">Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ProductList">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="OrderList">Orders</a>
+                            </li>
+                        }
                     </ul>
+                    <!--Login / Register-->
                     <partial name="_LoginPartial" />
+                    <!--View Cart-->
+                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                        <img src="~/images/ViewCart.png" width="50px" />
+                    </a>
                 </div>
             </div>
         </nav>
