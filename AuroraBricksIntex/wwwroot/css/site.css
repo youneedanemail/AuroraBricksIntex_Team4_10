@@ -38,12 +38,22 @@ body {
     border-color: #add8e6;
 }
 
-.btn-grey {
-    background-color: #D3D3D3;
-    border-color: #D3D3D3
+.btn-info {
+    background-color: #add8e6; /*pastel blue*/
+    border-color: #add8e6;
 }
 
+.btn-grey {
+    background-color: #D3D3D3;
+    border-color: #D3D3D3;
+}
 
+.btn-danger {
+    background-color: #CFAB97;
+    border-color: #CFAB97;
+}
+
+CFAB97
 .bg-img {
     background-image: url("../images/Header.png");
     background-size: contain; /* Make the background image cover the entire container while maintaining its aspect ratio */
