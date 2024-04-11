@@ -30,11 +30,16 @@
             </div>
         </div>
         <!-- Product actions-->
-@* 		<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-			<div class="text-center"><a class="btn btn-outline-dark mt-auto">Add to cart</a></div>
-		</div>
-        <form method="post" asp-page="/Cart">
-			<button type="submit" class="btn-outline-success"></button>
-        </form> *@
+        
+        @* Add to cart button *@
+        <form id=@Model.ProductId method="post" asp-page="/Cart">
+            <input type = "hidden" asp-for="ProductId"/>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <button type="submit" class="btn-grey btn-sm">Add to Cart</button>
+                </div>
+            </div>
+        </form>
+
     </div>
 </div>

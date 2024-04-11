@@ -54,6 +54,8 @@ namespace AuroraBricksIntex
                 microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
             });
 
+           
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
