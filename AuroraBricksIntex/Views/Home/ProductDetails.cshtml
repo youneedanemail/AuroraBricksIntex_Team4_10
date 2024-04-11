@@ -9,24 +9,38 @@
 <!-- Product section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
-        <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
-            <div class="col-md-6">
-                <h1 class="display-5 fw-bolder">Shop item template</h1>
-                <div class="fs-5 mb-5">
-                    <span class="text-decoration-line-through"></span>
-                    <span>$40.00</span>
-                </div>
-                <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-                <div class="d-flex">
-                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        Add to cart<a href="c:\users\kimberlynoallhunter\source\repos\aurorabricksintex\aurorabricksintex\views\home\productdetails.cshtml">c:\users\kimberlynoallhunter\source\repos\aurorabricksintex\aurorabricksintex\views\home\productdetails.cshtml</a>
-                    </button>
+        @foreach (var product in Model.Products)
+        {
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="@product.ImgLink" alt="..." /></div>
+                <div class="col-md-6">
+                    <h1 class="display-5 fw-bolder">@product.Name</h1>
+                    <div class="fs-5 mb-5">
+                        <span class="text-decoration-line-through"></span>
+                        <span>$@product.Price</span>
+                    </div>
+                    <p class="lead">@product.Description</p>
+                    <div class="d-flex">
+                        <form id=@product.ProductId method="post" asp-page="/Cart">
+                            <label>Qty</label>
+                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
+
+
+                        <!--Add To Cart-->
+                            <input type="hidden" asp-for="@product.ProductId" />
+@*                             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+ *@                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-sm">
+                                        <img src="~/images/AddToCartLight.png" width="100px" />
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 </section>
 <!-- Related items section-->
