@@ -27,9 +27,9 @@ body {
     max-width: 100%; /* Limit image width to its container */
 }
 
-@media (min-width: 375px) { /* Change 992px to your desired breakpoint */
+@media (min-width: 500px) { /* Change 992px to your desired breakpoint */
     .max-width-img {
-        max-width: 375px; /* Change this value to your desired maximum width */
+        max-width: 500px; /* Change this value to your desired maximum width */
     }
 }
 
@@ -38,16 +38,20 @@ body {
     border-color: #add8e6;
 }
 
+.btn-info {
+    background-color: #add8e6; /*pastel blue*/
+    border-color: #add8e6;
+}
+
 .btn-grey {
     background-color: #D3D3D3;
-    border-color: #D3D3D3
+    border-color: #D3D3D3;
 }
 
 .btn-danger {
-    background-color: #FFCCCB;
-    border-color: #FFCCCB
+    background-color: #CFAB97;
+    border-color: #CFAB97;
 }
-
 
 .bg-img {
     background-image: url("../images/Header.png");
@@ -55,6 +59,15 @@ body {
     background-repeat: no-repeat; /* Prevent image repetition */
     background-position: center; /* Center the background image */
     height: 500px; /* Initial height of the container */
+}
+
+.product-img {
+
+    max-width: 450px; /* Maximum width */
+    height: 200px; /* Maximum height */
+    width: 100%; /* Take up full width of container */
+    object-fit: cover; /* Fill the container while preserving aspect ratio */
+    object-position: center; /* Center the image within the container */
 }
 
 /*css for cookie button*/

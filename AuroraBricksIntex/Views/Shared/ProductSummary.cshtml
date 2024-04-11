@@ -12,13 +12,34 @@
 <div class="col mb-5">
     <div class="card h-100">
         <!-- Product image-->
-        <img class="card-img-top" src="@Model.ImgLink" alt="..." />
+        <img class="product-img card-img-top" src="@Model.ImgLink" alt="..." />
         <!-- Product details-->
         <div class="card-body p-4">
             <div class="text-center">
                 <!-- Product name-->
                 <h5 class="fw-bolder">@Model.Name</h5>
-                <!-- Product reviews-->
+                <!-- Product price-->
+            </div>
+        </div>
+        <h2 class="text-center">$@Model.Price</h2>
+        <!-- Product actions-->   
+        @* Add to cart button *@
+        <form id=@Model.ProductId method="post" asp-page="/Cart">
+            <input type = "hidden" asp-for="ProductId"/>
+            <input type = "hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()"/>
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                    <button type="submit" class="btn btn-sm">                    
+                        <img src="~/images/AddToCartLight.png" width="100px" />
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- Product reviews-->
 @*                 <div class="d-flex justify-content-center small text-warning mb-2">
                     <div class="bi-star-fill"></div>
                     <div class="bi-star-fill"></div>
@@ -26,22 +47,3 @@
                     <div class="bi-star-fill"></div>
                     <div class="bi-star-fill"></div>
                 </div> *@
-                <!-- Product price-->
-                @Model.Price
-            </div>
-        </div>
-        <!-- Product actions-->
-        
-        @* Add to cart button *@
-        <form id=@Model.ProductId method="post" asp-page="/Cart">
-            <input type = "hidden" asp-for="ProductId"/>
-            <input type = "hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()"/>
-            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center">
-                    <button type="submit" class="btn-grey btn-sm">Add to Cart</button>
-                </div>
-            </div>
-        </form>
-
-    </div>
-</div>

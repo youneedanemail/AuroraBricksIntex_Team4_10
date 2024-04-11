@@ -25,6 +25,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.17.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="3.0.0" />
   </ItemGroup>
 
 </Project>
