@@ -1,4 +1,5 @@
-﻿@*
+﻿@using AuroraBricksIntex.Infrastructure
+@*
    Display 'card' of the individual product records on the home page from the product table
 
    Needs Razor code for dynamic page
@@ -34,6 +35,7 @@
         @* Add to cart button *@
         <form id=@Model.ProductId method="post" asp-page="/Cart">
             <input type = "hidden" asp-for="ProductId"/>
+            <input type = "hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()"/>
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                 <div class="text-center">
                     <button type="submit" class="btn-grey btn-sm">Add to Cart</button>

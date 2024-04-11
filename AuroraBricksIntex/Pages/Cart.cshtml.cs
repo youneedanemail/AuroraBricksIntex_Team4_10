@@ -15,12 +15,14 @@ namespace AuroraBricksIntex.Pages
             _repo = temp;
         }
         public Cart? Cart { get; set; }
-        public void OnGet()
+        public string ReturnUrl { get; set; }
+        public void OnGet(string returnUrl)
         {
+            ReturnUrl = returnUrl ?? "/";
             Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
         }
 
-        public void OnPost(int productId)
+        public IActionResult OnPost(int productId, string returnUrl)
         {
             Product prod = _repo.Products.FirstOrDefault(x => x.ProductId == productId);
 
@@ -30,6 +32,8 @@ namespace AuroraBricksIntex.Pages
                 Cart.AddItem(prod, 1);
                 HttpContext.Session.SetJson("cart", Cart);
             }
+
+            return RedirectToPage (new { returnUrl = returnUrl });
         }
 
     }
