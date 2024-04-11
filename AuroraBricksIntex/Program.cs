@@ -78,10 +78,18 @@ namespace AuroraBricksIntex
 
             app.UseRouting(); // Enable routing
 
+            //// Content Security Policy
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; base-uri 'self'; img-src 'self' data: https:; object-src 'none'; script-src 'self' https://stackpath.bootstrapcdn.com https://code.jquery.com/jquery-3.6.0.min.js https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js; style-src 'self' https://stackpath.bootstrapcdn.com; connect-src 'self' http://localhost:54310 https://localhost:44329 https://localhost:44389; upgrade-insecure-requests;");
+            //    await next();
+            //});
+
+
             // Content Security Policy
             app.Use(async (context, next) =>
             {
-                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; base-uri 'self'; img-src 'self' data: https:; object-src 'none'; script-src 'self' https://stackpath.bootstrapcdn.com; style-src 'self' https://stackpath.bootstrapcdn.com 'unsafe-inline'; upgrade-insecure-requests;");
+                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; base-uri 'self'; img-src 'self' data: https:; object-src 'none'; script-src 'self' https://stackpath.bootstrapcdn.com https://code.jquery.com/jquery-3.6.0.min.js https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js 'unsafe-inline'; style-src 'self' https://stackpath.bootstrapcdn.com 'unsafe-inline'; connect-src 'self' http://localhost:54310 https://localhost:44329; upgrade-insecure-requests;");
                 await next();
             });
 
