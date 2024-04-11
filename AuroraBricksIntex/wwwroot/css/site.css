@@ -43,6 +43,11 @@ body {
     border-color: #D3D3D3
 }
 
+.btn-danger {
+    background-color: #FFCCCB;
+    border-color: #FFCCCB
+}
+
 
 .bg-img {
     background-image: url("../images/Header.png");
