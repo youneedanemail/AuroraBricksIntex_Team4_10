@@ -54,6 +54,8 @@ namespace AuroraBricksIntex
                 microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
             });
 
+           
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -72,13 +74,26 @@ namespace AuroraBricksIntex
 
             app.UseSession();
 
-            app.UseRouting();
+            //app.UseRouting();
 
             //app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/{pageNum}", new { Controller = "Home", action = "Index" });
             //app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
             //app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
 
+            //app.MapDefaultControllerRoute();
+
+
+            app.UseRouting();
+
+            app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/Page{pageNum}", new { Controller = "Home", action = "Index" });
+            app.MapControllerRoute("page", "Page/{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
+            app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
+            app.MapControllerRoute("pagination", "Products/Page{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
+
             app.MapDefaultControllerRoute();
+
+            app.MapRazorPages();
+
 
             app.MapRazorPages();
 
