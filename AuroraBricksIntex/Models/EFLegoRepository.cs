@@ -18,6 +18,26 @@ namespace AuroraBricksIntex.Models
             _context.SaveChanges();
         }
 
+        public void AddOrder(Order order)
+        {
+            if (order.LineItems == null)
+            {
+                order.LineItems = new List<LineItem>();
+            }
+
+            order.Amount = (short?)order.LineItems.Sum(item => {
+                if (item != null && item.Product != null)
+                    return item.Qty * item.Product.Price;
+                else
+                    return 0; // Or handle this case as needed, maybe throw an exception or log an error
+            });
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+        }
+
+
+
         //public void AddUser(User user)
         //{
         //    _context.Add(user);
@@ -41,6 +61,7 @@ namespace AuroraBricksIntex.Models
             _context.Update(product);
             _context.SaveChanges();
         }
+
 
         //public void EditUser(User user)
         //{
