@@ -77,7 +77,7 @@ namespace AuroraBricksIntex.Controllers
                 Products = _repo.Products
                 .Where(x => x.ProductId == ProductId)   // can use to find recommendations related to the productID passed
                 //.OrderBy(x => x.Name)  // can filter by highest value score if wanted
-                .Take(recommend),
+                //.Take(recommend),
             };
 
             return View(productDetail);

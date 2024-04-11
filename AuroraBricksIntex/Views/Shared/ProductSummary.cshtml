@@ -11,6 +11,7 @@
 
 <div class="col mb-5">
     <div class="card h-100">
+        <a asp-area="" asp-controller="Home" asp-action="ProductDetails" asp-route-productId="@Model.ProductId">
         <!-- Product image-->
         <img class="product-img card-img-top" src="@Model.ImgLink" alt="..." />
         <!-- Product details-->
@@ -22,6 +23,7 @@
             </div>
         </div>
         <h2 class="text-center">$@Model.Price</h2>
+        </a>
         <!-- Product actions-->   
         @* Add to cart button *@
         <form id=@Model.ProductId method="post" asp-page="/Cart">
