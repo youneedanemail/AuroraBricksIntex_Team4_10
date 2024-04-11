@@ -38,6 +38,11 @@ body {
     border-color: #add8e6;
 }
 
+.btn-grey {
+    background-color: #D3D3D3;
+    border-color: #D3D3D3
+}
+
 
 
 /*css for cookie button*/
