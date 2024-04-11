@@ -21,6 +21,10 @@
                 <td class="text-center">@l.Quantity</td>
                 <td class="text-right">@l.Product.Price</td>
                 <td class="text-right">@((l.Quantity * l.Product.Price).ToString("c"))</td>
+            
+@*             <form method="post" asp-page-handler="RemoveItem" asp-route-productId="@l.Product.ProductId">
+                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+            </form> *@
             </tr>
         }
 

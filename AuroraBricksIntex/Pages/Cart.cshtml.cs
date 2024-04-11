@@ -36,5 +36,17 @@ namespace AuroraBricksIntex.Pages
             return RedirectToPage (new { returnUrl = returnUrl });
         }
 
+        //remove something from the cart
+        //public IActionResult OnPostRemoveItem(int productId)
+        //{
+        //    Product productToRemove = _repo.Products.FirstOrDefault(p => p.ProductId == productId);
+        //    if (productToRemove != null)
+        //    {
+        //        Cart.RemoveLine(productToRemove);
+        //    }
+
+        //    return RedirectToPage();
+        //}
+
     }
 }
