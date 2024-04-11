@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using AuroraBricksIntex.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
-
+using NWebsec.AspNetCore.Middleware;
 
 namespace AuroraBricksIntex
 {
@@ -16,7 +16,7 @@ namespace AuroraBricksIntex
             var services = builder.Services;
             var configuration = builder.Configuration;
 
-
+            // Take the connection string out of the program and get it from environment variables
             var connectionString = configuration["ConnectionStrings:DefaultConnection"]
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -42,7 +42,7 @@ namespace AuroraBricksIntex
 
             builder.Services.Configure<IdentityOptions>(options =>
             {
-                // Default Password settings.
+                // Better password settings.
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireNonAlphanumeric = true;
@@ -57,42 +57,49 @@ namespace AuroraBricksIntex
                 microsoftOptions.ClientSecret = configuration["Authentication:Microsoft:ClientSecret"];
             });
 
-           
-
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline and add HSTS
             if (app.Environment.IsDevelopment())
             {
-                app.UseMigrationsEndPoint();
+                app.UseMigrationsEndPoint(); // Provide endpoint for database migration in development environment
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
-                app.UseHsts(); // Enable HSTS middleware
+                app.UseExceptionHandler("/Home/Error"); // Handle exceptions with error page
+                app.UseHsts(); // Enable HSTS middleware for enhanced security in production
             }
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            // Add Https Redirection
+            app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS
+            app.UseStaticFiles(); // Enable static file serving
 
-            app.UseSession();
+            app.UseSession(); // Enable session state
 
-            app.UseRouting();
+            app.UseRouting(); // Enable routing
 
+            // Content Security Policy
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; base-uri 'self'; img-src 'self' data: https:; object-src 'none'; script-src 'self' https://stackpath.bootstrapcdn.com; style-src 'self' https://stackpath.bootstrapcdn.com 'unsafe-inline'; upgrade-insecure-requests;");
+                await next();
+            });
+
+            // Upgrade URLs to look better
             app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/Page{pageNum}", new { Controller = "Home", action = "Index" });
             app.MapControllerRoute("page", "Page/{pageNum}", new { Controller = "Home", Action = "Index", pageNum = 1 });
             app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
             app.MapControllerRoute("pagination", "Products/Page{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
 
-            app.MapDefaultControllerRoute();
+            app.MapDefaultControllerRoute(); // Map default controller route
 
-            app.MapRazorPages();
+            app.MapRazorPages(); // Map Razor pages
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            // Add authentication and authorization
+            app.UseAuthentication(); // Enable authentication
+            app.UseAuthorization(); // Enable authorization
 
-
-            app.Run();
+            app.Run(); // Execute the application
         }
     }
 }
