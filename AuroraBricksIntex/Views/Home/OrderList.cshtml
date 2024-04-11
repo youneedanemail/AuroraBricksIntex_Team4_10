@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Order List";
+}
+
+
+@model List<Order>
+
+<h3>Orders with fraud warnings</h3>
+<table class="table table-bordered">
+    <thead class="fw-bold">
+        <tr>
+            <td>Transaction Id</td>
+            <td>Customer Id</td>
+            <td>Date</td>
+            <td>Day Of Week</td>
+            <td>Time</td>
+            <td>Entry Mode</td>
+            <td>Amount</td>
+            <td>Transaction Type</td>
+            <td>Transaction Country</td>
+            <td>Shipping Address</td>
+            <td>Bank</td>
+            <td>Card Type</td>
+            <td>Fraud</td>
+        </tr>
+
+    </thead>
+
+    @foreach (var x in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@x.TransactionId</td>
+                <td>@x.CustomerId</td>
+                <td>@x.Date</td>
+                <td>@x.DayOfWeek</td>
+                <td>@x.Time</td>
+                <td>@x.EntryMode</td>
+                <td>@x.Amount</td>
+                <td>@x.TypeOfTransaction</td>
+                <td>@x.CountryOfTransaction</td>
+                <td>@x.ShippingAddress</td>
+                <td>@x.Bank</td>
+                <td>@x.TypeOfCard</td>
+                <td>@x.Fraud</td>
+            </tr>
+
+        </tbody>
+    }
+</table>
+
