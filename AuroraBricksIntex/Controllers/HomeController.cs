@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Recommendations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AuroraBricksIntex.Controllers
 {
@@ -90,6 +91,8 @@ namespace AuroraBricksIntex.Controllers
         // Add
 
         [HttpGet]
+        [Authorize]
+        //[Authorize(Roles = "Admin")]
         public IActionResult AddProduct()
         {
             ViewBag.Products = _repo.Products  // populates viewbag Products
@@ -100,6 +103,8 @@ namespace AuroraBricksIntex.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        //[Authorize(Roles = "Admin")]
         public IActionResult AddProduct(Product response)
         {
             if (ModelState.IsValid)
@@ -114,7 +119,8 @@ namespace AuroraBricksIntex.Controllers
             }
         }
 
-
+        [Authorize]
+        //[Authorize(Roles = "Admin")]
         public IActionResult ProductList()
         {
             // Linq  (sequal language)
@@ -127,6 +133,8 @@ namespace AuroraBricksIntex.Controllers
 
         // Edit 
         [HttpGet]
+        [Authorize]
+        //[Authorize(Roles = "Admin")]
         public IActionResult EditProduct(int id)
         {
             var recordToEdit = _repo.Products
@@ -140,6 +148,8 @@ namespace AuroraBricksIntex.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        //[Authorize(Roles = "Admin")]
         public IActionResult EditProduct(Product updateInfo)
         {
             _repo.EditProduct(updateInfo);
@@ -149,6 +159,8 @@ namespace AuroraBricksIntex.Controllers
 
         // Delete 
         [HttpGet]
+        [Authorize]
+        //[Authorize(Roles = "Admin")]
         public IActionResult DeleteProduct(int id)
         {
             var recordToDelete = _repo.Products
@@ -160,6 +172,8 @@ namespace AuroraBricksIntex.Controllers
 
         // Delete 
         [HttpPost]
+        [Authorize]
+        //[Authorize(Roles = "Admin")]
         public IActionResult DeleteProduct(Product deleteInfo)
         {
             _repo.DeleteProduct(deleteInfo);
