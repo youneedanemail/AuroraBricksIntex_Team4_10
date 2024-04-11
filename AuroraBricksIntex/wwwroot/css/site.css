@@ -27,9 +27,9 @@ body {
     max-width: 100%; /* Limit image width to its container */
 }
 
-@media (min-width: 375px) { /* Change 992px to your desired breakpoint */
+@media (min-width: 500px) { /* Change 992px to your desired breakpoint */
     .max-width-img {
-        max-width: 375px; /* Change this value to your desired maximum width */
+        max-width: 500px; /* Change this value to your desired maximum width */
     }
 }
 
