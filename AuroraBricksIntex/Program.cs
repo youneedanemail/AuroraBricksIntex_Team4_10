@@ -23,10 +23,13 @@ namespace AuroraBricksIntex
             builder.Services.AddDbContext<Team410DbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString)); // Add ApplicationDbContext to the services
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<Team410DbContext>(); // Use Team410DbContext for Identity
+                .AddEntityFrameworkStores<ApplicationDbContext>(); // Use ApplicationDbContext for Identity
 
             builder.Services.AddControllersWithViews();
 
@@ -74,15 +77,6 @@ namespace AuroraBricksIntex
 
             app.UseSession();
 
-            //app.UseRouting();
-
-            //app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/{pageNum}", new { Controller = "Home", action = "Index" });
-            //app.MapControllerRoute("productCategoryType", "{productCategoryType}", new { Controller = "Home", action = "Index", pageNum = 1 });
-            //app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
-
-            //app.MapDefaultControllerRoute();
-
-
             app.UseRouting();
 
             app.MapControllerRoute("pagenumandcategory", "{productCategoryType}/Page{pageNum}", new { Controller = "Home", action = "Index" });
@@ -91,9 +85,6 @@ namespace AuroraBricksIntex
             app.MapControllerRoute("pagination", "Products/Page{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
 
             app.MapDefaultControllerRoute();
-
-            app.MapRazorPages();
-
 
             app.MapRazorPages();
 
