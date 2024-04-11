@@ -12,26 +12,17 @@
 <div class="col mb-5">
     <div class="card h-100">
         <!-- Product image-->
-        <img class="card-img-top" src="@Model.ImgLink" alt="..." />
+        <img class="product-img card-img-top" src="@Model.ImgLink" alt="..." />
         <!-- Product details-->
         <div class="card-body p-4">
             <div class="text-center">
                 <!-- Product name-->
                 <h5 class="fw-bolder">@Model.Name</h5>
-                <!-- Product reviews-->
-@*                 <div class="d-flex justify-content-center small text-warning mb-2">
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                    <div class="bi-star-fill"></div>
-                </div> *@
                 <!-- Product price-->
-                @Model.Price
             </div>
         </div>
-        <!-- Product actions-->
-        
+        <h2 class="text-center">$@Model.Price</h2>
+        <!-- Product actions-->   
         @* Add to cart button *@
         <form id=@Model.ProductId method="post" asp-page="/Cart">
             <input type = "hidden" asp-for="ProductId"/>
@@ -45,3 +36,12 @@
 
     </div>
 </div>
+
+<!-- Product reviews-->
+@*                 <div class="d-flex justify-content-center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                </div> *@

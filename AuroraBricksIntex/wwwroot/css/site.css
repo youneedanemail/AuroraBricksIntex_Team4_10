@@ -53,13 +53,21 @@ body {
     border-color: #CFAB97;
 }
 
-CFAB97
 .bg-img {
     background-image: url("../images/Header.png");
     background-size: contain; /* Make the background image cover the entire container while maintaining its aspect ratio */
     background-repeat: no-repeat; /* Prevent image repetition */
     background-position: center; /* Center the background image */
     height: 500px; /* Initial height of the container */
+}
+
+.product-img {
+
+    max-width: 450px; /* Maximum width */
+    height: 200px; /* Maximum height */
+    width: 100%; /* Take up full width of container */
+    object-fit: cover; /* Fill the container while preserving aspect ratio */
+    object-position: center; /* Center the image within the container */
 }
 
 /*css for cookie button*/
