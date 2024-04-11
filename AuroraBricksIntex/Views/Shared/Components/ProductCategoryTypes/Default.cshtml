@@ -5,10 +5,29 @@
 }
 @model IQueryable<string>
 
-<div class="d-grid gap-2">
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        Filter By Category
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+        <li>
+            <a class="btn dropdown-item @(null == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary" )" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="" asp-route-pageNum="">All Products</a>
+        </li>
+        @foreach (string pt in Model ?? Enumerable.Empty<string>())
+        {
+            <li>
+                <a class="btn dropdown-item @(pt == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="@pt" asp-route-pageNum="1">@pt</a>
+            </li>
+        }
+    </ul>
+</div>
+
+
+@* <div class="d-grid gap-2">
     <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="" asp-route-pageNum="">Home</a>
     @foreach (string pt in Model ?? Enumerable.Empty<string>())
     {
-        <a class="btn @(pt == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="@pt" asp-route-pageNum="1">@pt</a>
+        <a class="btn dropdown-item @(pt == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary")" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="@pt" asp-route-pageNum="1">@pt</a>
     }
-</div>
+</div> *@
