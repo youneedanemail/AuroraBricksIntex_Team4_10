@@ -1,4 +1,5 @@
 ﻿using AuroraBricksIntex.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuroraBricksIntex.Models
 {
@@ -17,6 +18,46 @@ namespace AuroraBricksIntex.Models
             _context.Add(product);
             _context.SaveChanges();
         }
+
+        public void AddOrder(Order order)
+        {
+            if (order.LineItems == null)
+            {
+                order.LineItems = new List<LineItem>();
+            }
+
+            order.Amount = (short?)order.LineItems.Sum(item => {
+                if (item != null && item.Product != null)
+                    return item.Qty * item.Product.Price;
+                else
+                    return 0;
+            });
+
+            // Attach each product as an existing entity
+            foreach (var lineItem in order.LineItems)
+            {
+                // Check if the product is already tracked by the context
+                var trackedProduct = _context.Products.Find(lineItem.Product.ProductId);
+                if (trackedProduct != null)
+                {
+                    // If tracked, use the tracked product instead of the one provided
+                    lineItem.Product = trackedProduct;
+                }
+                else
+                {
+                    // If not tracked and it's a known entity, attach it
+                    if (_context.Entry(lineItem.Product).State == EntityState.Detached)
+                        _context.Products.Attach(lineItem.Product);
+                }
+            }
+
+            _context.Orders.Add(order);
+            _context.SaveChanges();
+        }
+
+
+
+
 
         //public void AddUser(User user)
         //{
@@ -41,6 +82,7 @@ namespace AuroraBricksIntex.Models
             _context.Update(product);
             _context.SaveChanges();
         }
+
 
         //public void EditUser(User user)
         //{

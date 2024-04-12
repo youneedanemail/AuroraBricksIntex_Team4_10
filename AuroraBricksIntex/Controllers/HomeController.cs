@@ -9,6 +9,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Recommendations;
 using Microsoft.AspNetCore.Authorization;
+using AuroraBricksIntex.Infrastructure;
 
 namespace AuroraBricksIntex.Controllers
 {
@@ -265,6 +266,72 @@ namespace AuroraBricksIntex.Controllers
 
         //    return RedirectToAction("UserList");
         //}
+
+
+        // Order Section
+
+
+        // Checkout action
+        [HttpPost]
+        public IActionResult Checkout(DateTime dateTime, DateOnly dateOnly, TimeOnly timeOnly)
+        {
+            // Retrieve cart from session
+            var cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+
+            // Create a new order
+            var order = new Order
+            {
+                Date = dateOnly,
+                Time = timeOnly,
+                DayOfWeek = dateTime.DayOfWeek.ToString(),
+                EntryMode = "CVC",
+                TypeOfTransaction = "Online",
+                CountryOfTransaction = "USA",
+                ShippingAddress = "USA",
+                Bank = "Barclays",
+                TypeOfCard = "Visa",
+            };
+
+            // Add line items to the order
+            foreach (var line in cart.Lines)
+            {
+                order.LineItems.Add(new LineItem
+                {
+                    ProductId = line.Product.ProductId,
+                    Qty = (byte)line.Quantity,
+
+
+                    // You may need to adjust other properties based on your requirements
+                });
+            }
+
+            // Save the order to the database
+            _repo.AddOrder(order);
+
+            // Clear the cart after checkout
+            cart.Clear();
+            HttpContext.Session.SetJson("cart", cart);
+
+            // Redirect to a confirmation page
+            return RedirectToAction("ConfirmOrderAdd");
+        }
+
+        public IActionResult ConfirmOrderAdd()
+        {
+            // Retrieve the most recently added order based on timestamp
+            Order order = _repo.Orders.OrderByDescending(o => o.TransactionId).FirstOrDefault();
+
+            // Check if the order is not null
+            if (order != null)
+            {
+                return View(order);
+            }
+            else
+            {
+                // If no order is found, handle the situation accordingly, such as redirecting to an error page
+                return RedirectToAction("Error", "Home"); // Example redirection to the error page
+            }
+        }
 
 
         // Faudulant Order View

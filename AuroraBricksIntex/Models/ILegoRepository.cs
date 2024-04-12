@@ -11,6 +11,8 @@
         public void EditProduct(Product product);
 
         public void DeleteProduct(Product product);
+
+        void AddOrder(Order order);
         //public void AddUser(Product product);
 
         //public void EditUser(Product product);
