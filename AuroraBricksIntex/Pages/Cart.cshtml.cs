@@ -88,7 +88,7 @@ namespace AuroraBricksIntex.Pages
             _repo.AddOrder(order);
             cart.Clear();
             HttpContext.Session.SetJson("cart", cart);
-            return RedirectToPage("ConfirmOrderAdd");
+            return RedirectToAction("ConfirmOrderAdd", "Home");
         }
 
         //public IActionResult OnPostCheckout()

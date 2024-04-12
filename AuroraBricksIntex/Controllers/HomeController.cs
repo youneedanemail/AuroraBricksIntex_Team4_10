@@ -311,8 +311,21 @@ namespace AuroraBricksIntex.Controllers
 
         public IActionResult ConfirmOrderAdd()
         {
-            return View();
+            // Retrieve the most recently added order based on timestamp
+            Order order = _repo.Orders.OrderByDescending(o => o.TransactionId).FirstOrDefault();
+
+            // Check if the order is not null
+            if (order != null)
+            {
+                return View(order);
+            }
+            else
+            {
+                // If no order is found, handle the situation accordingly, such as redirecting to an error page
+                return RedirectToAction("Error", "Home"); // Example redirection to the error page
+            }
         }
+
 
         // Faudulant Order View
         public IActionResult OrderList()
