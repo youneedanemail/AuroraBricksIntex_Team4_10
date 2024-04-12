@@ -16,19 +16,20 @@ namespace AuroraBricksIntex.Pages
         private ILegoRepository _repo;
         private UserManager<IdentityUser> _userManager;
         private Team410DbContext _context; // Assuming your DbContext that contains Customers is named Team410DbContext
-
-        public CartModel(ILegoRepository repo, UserManager<IdentityUser> userManager, Team410DbContext context)
+        public Cart Cart { get; set; }
+        
+        public CartModel(ILegoRepository repo, UserManager<IdentityUser> userManager, Team410DbContext context, Cart cartService)
         {
             _repo = repo;
             _userManager = userManager;
             _context = context;
+            Cart = cartService;
         }
-        public Cart? Cart { get; set; }
         public string ReturnUrl { get; set; }
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
+            //Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
         }
 
         public IActionResult OnPost(int productId, string returnUrl)
@@ -37,9 +38,7 @@ namespace AuroraBricksIntex.Pages
 
             if(prod != null)
             {
-                Cart = HttpContext.Session.GetJson<Cart>("cart") ?? new Cart();
                 Cart.AddItem(prod, 1);
-                HttpContext.Session.SetJson("cart", Cart);
             }
 
             return RedirectToPage (new { returnUrl = returnUrl });
@@ -129,16 +128,13 @@ namespace AuroraBricksIntex.Pages
         //}
 
         //remove something from the cart
-        //public IActionResult OnPostRemoveItem(int productId)
-        //{
-        //    Product productToRemove = _repo.Products.FirstOrDefault(p => p.ProductId == productId);
-        //    if (productToRemove != null)
-        //    {
-        //        Cart.RemoveLine(productToRemove);
-        //    }
 
-        //    return RedirectToPage();
-        //}
+        public IActionResult OnPostRemove(int productId, string returnUrl)
+        {
+            Cart.RemoveLine(Cart.Lines.First(cl => cl.Product.ProductId == productId).Product);
+            return RedirectToPage(new { returnUrl = returnUrl });
+        }
+
 
     }
 }

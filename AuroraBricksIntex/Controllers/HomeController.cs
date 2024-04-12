@@ -23,7 +23,7 @@ namespace AuroraBricksIntex.Controllers
         }
 
         //pagination info and filtering to categories
-        public ViewResult Index(string? productCategoryType, int pageNum = 1)
+        public ViewResult Index(string? colorType, string? productCategoryType, int pageNum = 1)
         {
            int pageSize = 10;
 
@@ -35,6 +35,12 @@ namespace AuroraBricksIntex.Controllers
                 .Skip(pageSize * (pageNum - 1))
                 .Take(pageSize),
 
+                Colors = _repo.Products
+                .Where(x => x.PrimaryColor == colorType || colorType == null)
+                .OrderBy(x => x.PrimaryColor)
+                .Skip(pageSize * (pageNum - 1))
+                .Take(pageSize),
+
                 PaginationInfo = new PaginationInfo
                 {
                     CurrentPage = pageNum,
@@ -42,7 +48,8 @@ namespace AuroraBricksIntex.Controllers
                     TotalItems = productCategoryType == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category == productCategoryType).Count()
                 },
 
-               CurrentProductType = productCategoryType
+               CurrentProductType = productCategoryType,
+               CurrentColorType = colorType
             };
 
             return View(productData);
@@ -78,7 +85,7 @@ namespace AuroraBricksIntex.Controllers
                 Products = _repo.Products
                 .Where(x => x.ProductId == ProductId)   // can use to find recommendations related to the productID passed
                 //.OrderBy(x => x.Name)  // can filter by highest value score if wanted
-                .Take(recommend),
+                //.Take(recommend),
             };
 
             return View(productDetail);
