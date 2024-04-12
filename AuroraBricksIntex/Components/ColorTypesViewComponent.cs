@@ -13,7 +13,7 @@ namespace AuroraBricksIntex.Components
         }
         public IViewComponentResult Invoke()
         {
-            ViewBag.SelectedProductType = RouteData?.Values["colorType"];
+            ViewBag.SelectedColorType = RouteData?.Values["colorType"];
             var colorTypes = _repo.Products
                .Select(x => x.PrimaryColor)
                .Distinct()
