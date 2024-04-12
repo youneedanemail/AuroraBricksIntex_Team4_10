@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@inject Cart cart
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -7,6 +10,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AuroraBricksIntex.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib//font-awesome/css/all.min.css"/>
 </head> 
 <body>
     <!-- Header-->
@@ -25,6 +29,8 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
@@ -44,13 +50,36 @@
                             </li>
                         }
                     </ul>
+@*                     <div class="bg-dark text-white p-2">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col navbar-brand">THE WATER PROJECT</div>
+                                <div class="col-6 navbar-text text-end">
+                                    <vc:cart-summary />
+                                </div>
+                            </div>
+                        </div>
+                    </div> *@
                     <!--Login / Register-->
                     <partial name="_LoginPartial" />
                     <!--View Cart-->
-                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <a asp-page="/Cart">
                         <img src="~/images/ViewCart.png" width="50px" />
                     </a>
+                    <br />
+                    <div>
+                        <!-- This will only show if there are items in the cart -->
+                        @if (cart.Lines.Any())
+                        {
+							<b>Your cart:</b> @cart.Lines.Sum(x => x.Quantity) <b>item(s)</b>
+							<b>Total: </b> @cart.CalculateTotal().ToString("c")
+                        }
+                    </div>
+
+                   
+
                 </div>
+
             </div>
 
         </nav>
@@ -59,6 +88,11 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        <div class="row m-1 p-1">
+            <div class="col-3">
+                <vc:color-types />
+            </div>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
