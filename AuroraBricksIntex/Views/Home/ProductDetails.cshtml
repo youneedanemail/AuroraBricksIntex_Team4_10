@@ -19,7 +19,21 @@
                         <span class="text-decoration-line-through"></span>
                         <span>$@product.Price</span>
                     </div>
-                    <p class="lead">@product.Description</p>
+                        @{
+                            // Razor code to modify the product description
+                            int maxDescriptionLength = 350; // Maximum length of the description
+                            string truncatedDescription = product.Description.Length > maxDescriptionLength
+                                ? product.Description.Substring(0, maxDescriptionLength) + "..." // Truncate and add ellipsis if needed
+                                : product.Description;
+                        }
+                        <p class="lead">@truncatedDescription</p>
+@*                         <p class="lead truncated-description" data-full-description="@product.Description">@truncatedDescription</p>
+ *@
+@*                         <!-- Tooltip/popover element -->
+                        <div class="description-tooltip">
+                            <span class="full-description"></span>
+                        </div> *@
+
                     <div class="d-flex">
                         <form id=@product.ProductId method="post" asp-page="/Cart">
                             <label>Qty</label>
