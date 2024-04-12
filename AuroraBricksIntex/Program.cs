@@ -5,6 +5,8 @@ using AuroraBricksIntex.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using NWebsec.AspNetCore.Middleware;
+using System.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace AuroraBricksIntex
 {
@@ -16,15 +18,25 @@ namespace AuroraBricksIntex
             var services = builder.Services;
             var configuration = builder.Configuration;
 
+
+
             // Take the connection string out of the program and get it from environment variables
             var connectionString = configuration["ConnectionStrings:DefaultConnection"]
                 ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-            builder.Services.AddDbContext<Team410DbContext>(options =>
-                options.UseSqlServer(connectionString));
+            // Configure the Team410DbContext with SQL logging
+            services.AddDbContext<Team410DbContext>(options =>
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"])
+                       .LogTo(Console.WriteLine, LogLevel.Information)  // Log SQL queries to console
+                       .EnableSensitiveDataLogging()  // Only enable in development environments
+                       .EnableDetailedErrors());  // Provides detailed errors
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString)); // Add ApplicationDbContext to the services
+            // Configure the ApplicationDbContext similarly, if needed
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"])
+                       .LogTo(Console.WriteLine, LogLevel.Information)  // Adding logging here as well if needed
+                       .EnableSensitiveDataLogging()
+                       .EnableDetailedErrors());
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

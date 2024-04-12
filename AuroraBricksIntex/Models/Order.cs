@@ -9,6 +9,7 @@ public partial class Order
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Column("transaction_ID")]
     public int TransactionId { get; set; }
 
     public int CustomerId { get; set; }

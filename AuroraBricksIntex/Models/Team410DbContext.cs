@@ -14,7 +14,17 @@ public partial class Team410DbContext : DbContext
     {
     }
 
-
+    // Enable logging of SQL queries
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer(_connectionString);
+        }
+        // Adding logging to output SQL to Console
+        optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information)
+                      .EnableSensitiveDataLogging();
+    }
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
     public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
@@ -168,8 +178,9 @@ public partial class Team410DbContext : DbContext
         modelBuilder.Entity<Order>(entity =>
         {
             entity.HasKey(e => e.TransactionId);
-
-            entity.Property(e => e.TransactionId).ValueGeneratedOnAdd(); // This must be here to ensure identity generation
+            entity.Property(e => e.TransactionId)
+                  .HasColumnName("transaction_ID")
+                  .ValueGeneratedOnAdd(); // Ensuring it keeps the identity property
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.Bank)
                 .HasMaxLength(50)
@@ -205,6 +216,7 @@ public partial class Team410DbContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
+            entity.Property(e => e.ProductId).ValueGeneratedOnAdd(); // This is crucial
             entity.Property(e => e.ProductId).HasColumnName("product_ID");
             entity.Property(e => e.Category)
                 .HasMaxLength(50)

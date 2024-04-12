@@ -1,4 +1,5 @@
 ﻿using AuroraBricksIntex.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuroraBricksIntex.Models
 {
@@ -29,12 +30,32 @@ namespace AuroraBricksIntex.Models
                 if (item != null && item.Product != null)
                     return item.Qty * item.Product.Price;
                 else
-                    return 0; // Or handle this case as needed, maybe throw an exception or log an error
+                    return 0;
             });
+
+            // Attach each product as an existing entity
+            foreach (var lineItem in order.LineItems)
+            {
+                // Check if the product is already tracked by the context
+                var trackedProduct = _context.Products.Find(lineItem.Product.ProductId);
+                if (trackedProduct != null)
+                {
+                    // If tracked, use the tracked product instead of the one provided
+                    lineItem.Product = trackedProduct;
+                }
+                else
+                {
+                    // If not tracked and it's a known entity, attach it
+                    if (_context.Entry(lineItem.Product).State == EntityState.Detached)
+                        _context.Products.Attach(lineItem.Product);
+                }
+            }
 
             _context.Orders.Add(order);
             _context.SaveChanges();
         }
+
+
 
 
 
