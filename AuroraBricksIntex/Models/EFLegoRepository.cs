@@ -79,6 +79,26 @@ namespace AuroraBricksIntex.Models
         //    _context.SaveChanges();
         //}
 
+
+        //public void EditProduct(Product updatedProduct)
+        //{
+        //    var existingProduct = _context.Products.Find(updatedProduct.ProductId);
+
+        //    if (existingProduct != null)
+        //    {
+        //        existingProduct.Name = updatedProduct.Name;
+        //        existingProduct.Description = updatedProduct.Description;
+        //        existingProduct.Price = updatedProduct.Price;
+        //        existingProduct.Year = updatedProduct.Year;
+        //        existingProduct.NumParts = updatedProduct.NumParts;
+        //        existingProduct.ImgLink = updatedProduct.ImgLink;
+        //        existingProduct.PrimaryColor = updatedProduct.PrimaryColor;
+        //        existingProduct.SecondaryColor = updatedProduct.SecondaryColor;
+        //        existingProduct.Category = updatedProduct.Category;
+        //        _context.SaveChanges();
+        //    }
+        //}
+
         public void EditProduct(Product product)
         {
             _context.Update(product);

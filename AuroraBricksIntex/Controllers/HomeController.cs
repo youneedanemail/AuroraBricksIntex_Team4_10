@@ -22,6 +22,7 @@ namespace AuroraBricksIntex.Controllers
             _repo = temp;
         }
 
+
         //pagination info and filtering to categories
         public ViewResult Index(string? colorType, string? productCategoryType, int pageNum = 1, int pageSize = 10)
         {
@@ -31,30 +32,35 @@ namespace AuroraBricksIntex.Controllers
             var productData = new ProductsListViewModel
             {
                 Products = _repo.Products
-                .Where(x => x.Category == productCategoryType || productCategoryType == null)
-                .OrderBy(x => x.Name)
-                .Skip(pageSize * (pageNum - 1))
-                .Take(pageSize),
+            .Where(x => x.Category == productCategoryType || productCategoryType == null)
+            .Where(x => x.PrimaryColor == colorType || colorType == null)
+            .OrderBy(x => x.Name)
+            .Skip(pageSize * (pageNum - 1))
+            .Take(pageSize),
 
-                Colors = _repo.Products
-                .Where(x => x.PrimaryColor == colorType || colorType == null)
-                .OrderBy(x => x.PrimaryColor)
-                .Skip(pageSize * (pageNum - 1))
-                .Take(pageSize),
+            //    Colors = _repo.Products
+            //.Where(x => x.PrimaryColor == colorType || colorType == null)
+            //.OrderBy(x => x.PrimaryColor)
+            //.Skip(pageSize * (pageNum - 1))
+            //.Take(pageSize),
+
 
                 PaginationInfo = new PaginationInfo
                 {
                     CurrentPage = pageNum,
                     ItemsPerPage = pageSize,
-                    TotalItems = productCategoryType == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category == productCategoryType).Count()
+                    TotalItems = productCategoryType == null ? _repo.Products.Count() : _repo.Products.Where(x => x.Category == productCategoryType).Count(),
+                    //TotalItems = colorType == null ? _repo.Products.Count() : _repo.Products.Where(x => x.PrimaryColor == colorType).Count(),
                 },
 
-               CurrentProductType = productCategoryType,
-               CurrentColorType = colorType
+                CurrentProductType = productCategoryType,
+                //CurrentColorType = colorType
             };
 
             return View(productData);
         }
+
+
 
         public IActionResult AboutUs()
         {
@@ -153,7 +159,7 @@ namespace AuroraBricksIntex.Controllers
                 .OrderBy(x => x.Name)
                 .ToList();
 
-            return View("AddProduct", recordToEdit);
+            return View("EditProduct", recordToEdit);
         }
 
         [HttpPost]
@@ -274,6 +280,7 @@ namespace AuroraBricksIntex.Controllers
 
         // Checkout action
         [HttpPost]
+        [Authorize]
         public IActionResult Checkout(DateTime dateTime, DateOnly dateOnly, TimeOnly timeOnly)
         {
             // Retrieve cart from session
