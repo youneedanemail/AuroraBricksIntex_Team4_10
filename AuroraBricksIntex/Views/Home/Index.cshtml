@@ -25,13 +25,13 @@
             </button>
             <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
                 <li>
-                    <a class="btn dropdown-item @(null == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary" )" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="" asp-route-pageNum="">5 Items</a>
+                    <a class="btn dropdown-item @(null == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary" )" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="" asp-route-pageNum="" asp-route-pageSize="5">5 Items</a>
                 </li>
                 <li>
-                    <a class="btn dropdown-item @(null == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary" )" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="" asp-route-pageNum="">10 Items</a>
+                    <a class="btn dropdown-item @(null == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary" )" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="" asp-route-pageNum="" asp-route-pageSize="10">10 Items</a>
                 </li>
                 <li>
-                    <a class="btn dropdown-item @(null == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary" )" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="" asp-route-pageNum="">20 Items</a>
+                    <a class="btn dropdown-item @(null == ViewBag.SelectedProductType? "btn-primary" : "btn-outline-secondary" )" asp-controller="Home" asp-action="Index" asp-route-productCategoryType="" asp-route-pageNum="" asp-route-pageSize="20">20 Items</a>
                 </li>
             </ul>
         </div>
@@ -62,21 +62,26 @@
 <!--Cookie Code-->
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
-      var banner = document.getElementById('cookieConsentBanner');
-      banner.style.display = 'flex'; // Show the banner
+        // Check if the user has already accepted cookies
+        if (!localStorage.getItem('cookiesAccepted')) {
+            var banner = document.getElementById('cookieConsentBanner');
+            banner.style.display = 'flex'; // Show the banner
+        }
 
-      // When the user clicks on ‘Accept & Shop’, hide the banner
-      document.getElementById('acceptCookies').addEventListener('click', function () {
-        banner.style.display = 'none';
-        // Here, you would also handle the cookie acceptance, such as setting a cookie
-      });
+        // When the user clicks on 'Accept & Shop', hide the banner and set local storage
+        document.getElementById('acceptCookies').addEventListener('click', function () {
+            document.getElementById('cookieConsentBanner').style.display = 'none';
+            localStorage.setItem('cookiesAccepted', 'true'); // Set the flag in local storage
+            // Here, you would also handle the cookie acceptance, such as setting a cookie
+        });
 
-      // When the user clicks the ‘×’ button, hide the banner
-      document.getElementById('closeBanner').addEventListener('click', function () {
-        banner.style.display = 'none';
-      });
+        // When the user clicks the '×' button, hide the banner
+        document.getElementById('closeBanner').addEventListener('click', function () {
+            document.getElementById('cookieConsentBanner').style.display = 'none';
+        });
     });
 </script>
+
 
 <!-- Cookie Consent Banner with linked privacy policy -->
 <div id="cookieConsentBanner" class="cookie-consent-banner">

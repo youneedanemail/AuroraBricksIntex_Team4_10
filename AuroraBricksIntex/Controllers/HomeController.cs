@@ -23,9 +23,10 @@ namespace AuroraBricksIntex.Controllers
         }
 
         //pagination info and filtering to categories
-        public ViewResult Index(string? colorType, string? productCategoryType, int pageNum = 1)
+        public ViewResult Index(string? colorType, string? productCategoryType, int pageNum = 1, int pageSize = 10)
         {
-           int pageSize = 10;
+            // pageSize = Math.Clamp(pageSize, 5, 20);
+            pageSize = pageSize;
 
             var productData = new ProductsListViewModel
             {
