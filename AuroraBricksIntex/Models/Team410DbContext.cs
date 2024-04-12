@@ -13,8 +13,6 @@ public partial class Team410DbContext : DbContext
         : base(options)
     {
     }
-
-    // Enable logging of SQL queries
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -43,10 +41,6 @@ public partial class Team410DbContext : DbContext
     public virtual DbSet<Product> Products { get; set; }
 
     public virtual DbSet<SimilarProductAnalysis> SimilarProductAnalyses { get; set; }
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //    => optionsBuilder.UseSqlServer(_connectionString);
-
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
