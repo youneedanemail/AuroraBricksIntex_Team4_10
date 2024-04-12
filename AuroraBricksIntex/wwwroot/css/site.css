@@ -49,8 +49,11 @@ body {
 }
 
 .btn-danger {
-    background-color: #CFAB97;
+    background-color: #CFAB97; /*pastel red*/
     border-color: #CFAB97;
+}
+.card-text a {
+    color: grey; /* Change hyperlink color to grey */
 }
 
 .bg-img {
