@@ -1,4 +1,6 @@
-﻿@*
+﻿@using AuroraBricksIntex.Infrastructure
+
+@*
    Detail page of individual lego set - need to pass product key to dynamically display item
 *@
 @{
@@ -36,14 +38,10 @@
 
                     <div class="d-flex">
                         <form id=@product.ProductId method="post" asp-page="/Cart">
-                            <label>Qty</label>
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-
-
                         <!--Add To Cart-->
-                            <input type="hidden" asp-for="@product.ProductId" />
-@*                             <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
- *@                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <input type="hidden" asp-for="ProductId" />
+                            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-sm">
                                         <img src="~/images/AddToCartLight.png" width="100px" />
