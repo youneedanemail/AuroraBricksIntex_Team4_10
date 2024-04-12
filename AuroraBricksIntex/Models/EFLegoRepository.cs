@@ -13,6 +13,8 @@ namespace AuroraBricksIntex.Models
         public IQueryable<Product> Products => _context.Products;
         public IQueryable<Order> Orders => _context.Orders;
 
+        public IQueryable<SimilarProductAnalysis> SimilarProducts => _context.SimilarProductAnalyses;
+
         public void AddProduct(Product product)
         {
             _context.Add(product);
