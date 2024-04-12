@@ -40,6 +40,10 @@ namespace AuroraBricksIntex
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
 
+            builder.Services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
             builder.Services.Configure<IdentityOptions>(options =>
             {
                 // Better password settings.
