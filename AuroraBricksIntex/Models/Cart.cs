@@ -4,7 +4,7 @@
     {
         public List<CartLine> Lines { get; set; } = new List<CartLine>();
 
-        public void AddItem(Product proj, int quantity)
+        public virtual void AddItem(Product proj, int quantity)
         {
             CartLine line = Lines
                 .Where(x => x.Product.ProductId == proj.ProductId)
@@ -24,8 +24,8 @@
                 line.Quantity += quantity;
             }
         }
-        public void RemoveLine(Product proj) => Lines.RemoveAll(x => x.Product.ProductId == proj.ProductId);
-        public void Clear() => Lines.Clear();
+        public virtual void RemoveLine(Product proj) => Lines.RemoveAll(x => x.Product.ProductId == proj.ProductId);
+        public virtual void Clear() => Lines.Clear();
         public decimal CalculateTotal() => Lines.Sum(x => x.Product.Price * x.Quantity);
 
         public class CartLine
