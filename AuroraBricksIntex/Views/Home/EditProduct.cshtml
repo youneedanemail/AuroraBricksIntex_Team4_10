@@ -1,0 +1,77 @@
+﻿@{
+    ViewData["Title"] = "Edit Product";
+}
+
+@model Product
+
+<h1>Edit Product</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="ProductId" />
+
+    <label asp-for="Name">Product Name</label>
+    <input asp-for="Name" />
+    <br />
+    <label asp-for="Year">Year</label>
+    <input asp-for="Year" />
+    <br />
+    <label asp-for="NumParts">Number of Parts</label>
+    <input asp-for="NumParts" />
+    <br />
+    <label asp-for="Price">Price</label>
+    <input asp-for="Price" />
+    <br />
+    <label asp-for="ImgLink">Image Link</label>
+    <input asp-for="ImgLink" />
+    <br />
+    <label asp-for="Description">Description</label>
+    <input asp-for="Description" />
+    <br />
+    <select asp-for="PrimaryColor">
+        <option value="">Primary Color</option>
+        <option value="Black">Black</option>
+        <option value="Blue">Blue</option>
+        <option value="Brown">Brown</option>
+        <option value="Green">Green</option>
+        <option value="Grey">Grey</option>
+        <option value="Orange">Orange</option>
+        <option value="Red">Red</option>
+        <option value="Tan">Tan</option>
+        <option value="White">White</option>
+        <option value="Yellow">Yellow</option>
+    </select>
+    <br />
+    <select asp-for="SecondaryColor">
+        <option value="">Secondary Color</option>
+        <option value="Black">Black</option>
+        <option value="Blue">Blue</option>
+        <option value="Brown">Brown</option>
+        <option value="Green">Green</option>
+        <option value="Grey">Grey</option>
+        <option value="Orange">Orange</option>
+        <option value="Red">Red</option>
+        <option value="Tan">Tan</option>
+        <option value="White">White</option>
+        <option value="Yellow">Yellow</option>
+    </select>
+    <br />
+    <select asp-for="Category">
+        <option value="">Category</option>
+        <option value="Animal">Animal</option>
+        <option value="Harry Potter">Harry Potter</option>
+        <option value="Minifig">Mini Figure</option>
+        <option value="Misc">Miscellaneous</option>
+        <option value="Part">Part</option>
+        <option value="Star Wars">Star Wars</option>
+        <option value="Structure">Structure</option>
+        <option value="Vehicle">Vehicle</option>
+
+        @*         @foreach (Product.Category c in ViewBag.Products)
+        {
+        <option value="@c.Category">@c.Category</option>
+        } *@
+    </select>
+    <br />
+    <button class="btn btn-info" type="submit">Edit Product</button>
+
+</form>

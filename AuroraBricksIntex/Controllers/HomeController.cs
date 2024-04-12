@@ -153,7 +153,7 @@ namespace AuroraBricksIntex.Controllers
                 .OrderBy(x => x.Name)
                 .ToList();
 
-            return View("AddProduct", recordToEdit);
+            return View("EditProduct", recordToEdit);
         }
 
         [HttpPost]
