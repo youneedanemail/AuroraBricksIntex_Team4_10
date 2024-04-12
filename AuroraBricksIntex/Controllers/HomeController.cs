@@ -78,16 +78,16 @@ namespace AuroraBricksIntex.Controllers
         // Page to show details of one product
         public IActionResult ProductDetails(int ProductId)
         {
-            int recommend = 4;  // number of related recommendations to display
-
+            int recommend = 4; // number of related recommendations to display
             var productDetail = new RelatedProductsViewModel
             {
                 Products = _repo.Products
-                .Where(x => x.ProductId == ProductId)   // can use to find recommendations related to the productID passed
-                //.OrderBy(x => x.Name)  // can filter by highest value score if wanted
-                //.Take(recommend),
+              .Where(x => x.ProductId == ProductId), // can use to find recommendations related to the productID passed
+                                                     //.OrderBy(x => x.Name) // can filter by highest value score if wanted
+                                                     //.Take(recommend),
+                Recommendations = _repo.SimilarProducts
+              .Where(x => x.ProductId == ProductId),
             };
-
             return View(productDetail);
         }
 
@@ -347,6 +347,8 @@ namespace AuroraBricksIntex.Controllers
 
             return View(Orders);
         }
+
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

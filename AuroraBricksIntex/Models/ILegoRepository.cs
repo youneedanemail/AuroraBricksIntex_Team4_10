@@ -5,6 +5,8 @@
         public IQueryable<Product> Products { get; }
         public IQueryable<Order> Orders { get; }
 
+        public IQueryable<SimilarProductAnalysis> SimilarProducts { get; }
+
         // Crud functionality
         public void AddProduct(Product product);
 

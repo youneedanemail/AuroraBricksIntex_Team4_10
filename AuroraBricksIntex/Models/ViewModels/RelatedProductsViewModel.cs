@@ -6,5 +6,6 @@
         public string? CurrentSelectedProduct { get; set; }
 
         public string? CurrentRelatedtedProduct { get; set; }
+        public IQueryable<SimilarProductAnalysis> Recommendations { get; internal set; }
     }
 }

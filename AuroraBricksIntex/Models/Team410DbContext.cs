@@ -45,6 +45,8 @@ public partial class Team410DbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
+    public virtual DbSet<SimilarProductAnalysis> SimilarProductAnalyses { get; set; }
+
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //    => optionsBuilder.UseSqlServer(_connectionString);
 
@@ -239,6 +241,13 @@ public partial class Team410DbContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("secondary_color");
             entity.Property(e => e.Year).HasColumnName("year");
+        });
+
+        modelBuilder.Entity<SimilarProductAnalysis>(entity =>
+        {
+            entity.HasKey(e => e.SimilarProductId);
+            entity.ToTable("SimilarProductAnalysis");
+            entity.Property(e => e.ProductId).HasComment("ProductToPredict");
         });
 
         OnModelCreatingPartial(modelBuilder);
