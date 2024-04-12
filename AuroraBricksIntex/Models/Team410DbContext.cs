@@ -21,9 +21,6 @@ public partial class Team410DbContext : DbContext
         {
             optionsBuilder.UseSqlServer(_connectionString);
         }
-        // Adding logging to output SQL to Console
-        optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information)
-                      .EnableSensitiveDataLogging();
     }
     public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
 
