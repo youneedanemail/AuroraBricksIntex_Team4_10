@@ -1,7 +1,10 @@
-﻿namespace AuroraBricksIntex.Models.ViewModels
+﻿using Microsoft.Identity.Client;
+
+namespace AuroraBricksIntex.Models.ViewModels
 {
     public class PaginationInfo
     {
+
         public int TotalItems { get; set; }
 
         public int ItemsPerPage { get; set; }
