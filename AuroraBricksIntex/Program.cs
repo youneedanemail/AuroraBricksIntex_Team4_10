@@ -26,11 +26,11 @@ namespace AuroraBricksIntex
 
             // Configure the Team410DbContext with SQL logging
             services.AddDbContext<Team410DbContext>(options =>
-                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
 
             // Configure the ApplicationDbContext similarly, if needed
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]);
+                options.UseSqlServer(configuration["ConnectionStrings:DefaultConnection"]));
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
