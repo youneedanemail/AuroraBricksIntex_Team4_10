@@ -333,7 +333,90 @@ namespace AuroraBricksIntex.Controllers
                 return RedirectToAction("Error", "Home"); // Example redirection to the error page
             }
         }
+        // This action handles the form submission
+        [HttpPost]
+        public IActionResult SubmitTransaction(Order order)
+        {
+            // Perform any necessary logic based on the submitted data
+            // For now, let's assume the logic to determine fraud probability is done elsewhere
+            // We'll set a placeholder value for demonstration purposes
+            double fraudProbability = 0.5; // Placeholder value, should be replaced with actual calculation
 
+            // Determine the page to redirect based on the entry mode and country of transaction
+            string entryMode = order.EntryMode;
+            string country = order.CountryOfTransaction;
+            string redirectPage;
+
+            if (entryMode == "CVC" && country == "Russia")
+            {
+                // Redirect to PossibleFraud page
+                redirectPage = "PossibleFraud";
+            }
+            else if (entryMode == "CVC" && country == "China")
+            {
+                // Redirect to PossibleFraud page
+                redirectPage = "PossibleFraud";
+            }
+            else if ((entryMode == "CVC" && country == "USA") || (entryMode == "PIN" && country == "China"))
+            {
+                // Randomly decide whether to redirect to NoFraud or PossibleFraud page
+                if (new Random().NextDouble() < fraudProbability)
+                {
+                    redirectPage = "NoFraud";
+                }
+                else
+                {
+                    redirectPage = "PossibleFraud";
+                }
+            }
+            else if (entryMode == "CVC" && country == "United Kingdom")
+            {
+                // Redirect to NoFraud page
+                redirectPage = "NoFraud";
+            }
+            else
+            {
+                // Default redirect to NoFraud page
+                redirectPage = "NoFraud";
+            }
+
+            // Redirect to the determined page
+            //return RedirectToAction(redirectPage);
+            return View(redirectPage);
+            //return View("AddProduct", recordToEdit);
+        }
+
+
+        // Define a method to calculate fraud probability based on entry mode and country
+        private double GetFraudProbability(string entryMode, string country)
+        {
+            switch (entryMode)
+            {
+                case "CVC":
+                    switch (country)
+                    {
+                        case "Russia":
+                        case "China":
+                            return 1.0;
+                        case "USA":
+                        case "UK":
+                            return 0.5;
+                        default:
+                            return 0.0;
+                    }
+                case "PIN":
+                    if (country == "China")
+                    {
+                        return 0.5;
+                    }
+                    else
+                    {
+                        return 0.0;
+                    }
+                default:
+                    return 0.0;
+            }
+        }
 
         // Faudulant Order View
         public IActionResult OrderList()
@@ -348,9 +431,6 @@ namespace AuroraBricksIntex.Controllers
 
             return View(Orders);
         }
-
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

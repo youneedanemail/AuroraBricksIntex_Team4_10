@@ -1,10 +1,164 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model AuroraBricksIntex.Models.Order
 
-@model Order
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirmation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-<h1>Transaction #@Model.TransactionId has been successfully added in the database.</h1>
-<a class="btn btn-light" asp-controller="Home" asp-action="ProductList">View Products</a>
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 100px; /* Adjust bottom margin to accommodate privacy banner */
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-position: right 8px top 50%;
+            background-repeat: no-repeat;
+            background-size: 24px;
+            padding-right: 40px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            button[type="submit"]:hover {
+                background-color: #0056b3;
+            }
+
+        /* Privacy banner styles */
+        #cookieConsentBanner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f5f5f5;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+            #cookieConsentBanner p {
+                margin: 0;
+            }
+
+        #acceptCookies,
+        #closeBanner {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            #acceptCookies:hover,
+            #closeBanner:hover {
+                background-color: #0056b3;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Transaction #@Model.TransactionId has been successfully added in the database.</h1>
+
+        <h2>Submit Additional Information:</h2>
+        <form method="post" action="/Home/SubmitTransaction">
+            <div>
+                <label for="entryMode">Entry Mode:</label>
+                <select id="entryMode" name="entryMode">
+                    <option value="Tap">Tap</option>
+                    <option value="PIN">PIN</option>
+                    <option value="CVC">CVC</option>
+                </select>
+            </div>
+            <div>
+                <label for="countryOfTransaction">Country of Transaction:</label>
+                <select id="countryOfTransaction" name="countryOfTransaction">
+                    <option value="UK">UK</option>
+                    <option value="USA">USA</option>
+                    <option value="India">India</option>
+                    <option value="China">China</option>
+                    <option value="Russia">Russia</option>
+                </select>
+            </div>
+            <div>
+                <label for="shippingAddress">Shipping Address:</label>
+                <textarea id="shippingAddress" name="shippingAddress"></textarea>
+            </div>
+            <div>
+                <label for="bank">Bank:</label>
+                <select id="bank" name="bank">
+                    <option value="Barclays">Barclays</option>
+                    <option value="HSBC">HSBC</option>
+                    <option value="Metro">Metro</option>
+                </select>
+            </div>
+            <div>
+                <label for="typeOfCard">Type of Card:</label>
+                <select id="typeOfCard" name="typeOfCard">
+                    <option value="Visa">Visa</option>
+                    <option value="MasterCard">MasterCard</option>
+                </select>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
+
+
+
+@* <a class="btn btn-light" asp-controller="Home" asp-action="ProductList">View Products</a> *@

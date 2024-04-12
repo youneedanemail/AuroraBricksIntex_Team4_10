@@ -4,74 +4,97 @@
 
 @model Product
 
-<h1>Add New Product</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BuildWithAuroraBricks</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/AuroraBricksIntex.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container">
+        <h1>Add New Product</h1>
 
-<form method="post">
-    @* <input type="hidden" asp-for="ProductId" /> *@
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Name">Product Name</label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Year">Year</label>
+                <input asp-for="Year" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NumParts">Number of Parts</label>
+                <input asp-for="NumParts" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Price">Price</label>
+                <input asp-for="Price" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ImgLink">Image Link</label>
+                <input asp-for="ImgLink" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Description">Description</label>
+                <input asp-for="Description" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="PrimaryColor">Primary Color</label>
+                <select asp-for="PrimaryColor" class="form-control">
+                    <option value="">Primary Color</option>
+                    <option value="Black">Black</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Grey">Grey</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Red">Red</option>
+                    <option value="Tan">Tan</option>
+                    <option value="White">White</option>
+                    <option value="Yellow">Yellow</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecondaryColor">Secondary Color</label>
+                <select asp-for="SecondaryColor" class="form-control">
+                    <option value="">Secondary Color</option>
+                    <option value="Black">Black</option>
+                    <option value="Blue">Blue</option>
+                    <option value="Brown">Brown</option>
+                    <option value="Green">Green</option>
+                    <option value="Grey">Grey</option>
+                    <option value="Orange">Orange</option>
+                    <option value="Red">Red</option>
+                    <option value="Tan">Tan</option>
+                    <option value="White">White</option>
+                    <option value="Yellow">Yellow</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category">Category</label>
+                <select asp-for="Category" class="form-control">
+                    <option value="">Category</option>
+                    <option value="Animal">Animal</option>
+                    <option value="Harry Potter">Harry Potter</option>
+                    <option value="Minifig">Mini Figure</option>
+                    <option value="Misc">Miscellaneous</option>
+                    <option value="Part">Part</option>
+                    <option value="Star Wars">Star Wars</option>
+                    <option value="Structure">Structure</option>
+                    <option value="Vehicle">Vehicle</option>
+                </select>
+            </div>
+            <button class="btn btn-info" type="submit">Add Product</button>
+        </form>
+    </div>
 
-    <label asp-for="Name">Product Name</label>
-    <input asp-for="Name" />
-    <br />
-    <label asp-for="Year">Year</label>
-    <input asp-for="Year" />
-    <br />
-    <label asp-for="NumParts">Number of Parts</label>
-    <input asp-for="NumParts" />
-    <br />
-    <label asp-for="Price">Price</label>
-    <input asp-for="Price" />
-    <br />
-    <label asp-for="ImgLink">Image Link</label>
-    <input asp-for="ImgLink" />
-    <br />
-    <label asp-for="Description">Description</label>
-    <input asp-for="Description" />
-    <br />
-    <select asp-for="PrimaryColor">
-        <option value="">Primary Color</option>
-        <option value="Black">Black</option>
-        <option value="Blue">Blue</option>
-        <option value="Brown">Brown</option>
-        <option value="Green">Green</option>
-        <option value="Grey">Grey</option>
-        <option value="Orange">Orange</option>
-        <option value="Red">Red</option>
-        <option value="Tan">Tan</option>
-        <option value="White">White</option>
-        <option value="Yellow">Yellow</option>
-    </select>
-    <br />
-    <select asp-for="SecondaryColor">
-        <option value="">Secondary Color</option>
-        <option value="Black">Black</option>
-        <option value="Blue">Blue</option>
-        <option value="Brown">Brown</option>
-        <option value="Green">Green</option>
-        <option value="Grey">Grey</option>
-        <option value="Orange">Orange</option>
-        <option value="Red">Red</option>
-        <option value="Tan">Tan</option>
-        <option value="White">White</option>
-        <option value="Yellow">Yellow</option>
-    </select>
-    <br />
-    <select asp-for="Category">
-        <option value="">Category</option>
-        <option value="Animal">Animal</option>
-        <option value="Harry Potter">Harry Potter</option>
-        <option value="Minifig">Mini Figure</option>
-        <option value="Misc">Miscellaneous</option>
-        <option value="Part">Part</option>
-        <option value="Star Wars">Star Wars</option>
-        <option value="Structure">Structure</option>
-        <option value="Vehicle">Vehicle</option>
-
-@*         @foreach (Product.Category c in ViewBag.Products)
-        {
-            <option value="@c.Category">@c.Category</option>
-        } *@
-    </select>
-    <br />
-    <button class="btn btn-info" type="submit">Add Product</button>
-
-</form>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
