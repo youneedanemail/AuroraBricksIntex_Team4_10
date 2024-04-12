@@ -274,6 +274,7 @@ namespace AuroraBricksIntex.Controllers
 
         // Checkout action
         [HttpPost]
+        [Authorize]
         public IActionResult Checkout(DateTime dateTime, DateOnly dateOnly, TimeOnly timeOnly)
         {
             // Retrieve cart from session
